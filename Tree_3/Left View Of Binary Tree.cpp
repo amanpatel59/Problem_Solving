@@ -3,7 +3,7 @@
 vector<int> printLeftView(BinaryTreeNode<int>* root) {
     // Write your code here.
     vector<int>ans;
-    //if(root == NULL)return ans;
+    if(root == NULL)return ans;
     queue<BinaryTreeNode<int>*> q;
     q.push(root);
 
