@@ -1,3 +1,5 @@
+// USING KAHN'S ALGORITHM
+
 void TopoSort(int node, vector<int> &vis, vector<int> adj[], stack<int> &st)
 {
     if (vis[node])
