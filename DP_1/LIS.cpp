@@ -1,4 +1,5 @@
-class Solution {
+class Solution
+{
 public:
     // SIMPLE RECURSIVE SOLUTION
     // WILL RESULT IN TLE , SINCE TC : O(2^n) and n here goes till 2500
@@ -57,23 +58,46 @@ public:
 
     // MEMOIZATION SOLUTION IS WRONG NEED TO CORRECT IT AND SEE WHAT ARE THE LOGICAL ERROR!!!
 
-
-    
     // TABULATION
 
-    int lengthOfLIS(vector<int>& nums) {
-        vector<int>dp(nums.size());
-        dp[0] = 1;
+    // int lengthOfLIS(vector<int>& nums) {
+    //     vector<int>dp(nums.size());
+    //     dp[0] = 1;
 
-        for(int i = 1 ; i < nums.size() ; i++){
-            int maxi = 1;
-            for(int j = 0 ; j < i ; j++){
-                if(nums[j] < nums[i])maxi = max(dp[j]+1,maxi);
+    //     for(int i = 1 ; i < nums.size() ; i++){
+    //         int maxi = 1;
+    //         for(int j = 0 ; j < i ; j++){
+    //             if(nums[j] < nums[i])maxi = max(dp[j]+1,maxi);
+    //         }
+    //         dp[i] = maxi;
+    //     }
+    //     int ans = 1;
+    //     for(auto i : dp)ans = max(ans,i);
+    //     return ans;
+    // }
+
+    // BS
+    // NOT VERY INTUTIVE
+
+    int lengthOfLIS(vector<int> &nums)
+    {
+        int n = nums.size();
+        vector<int> ans;
+        ans.push_back(nums[0]);
+
+        for (int i = 1; i < n; i++)
+        {
+            if (nums[i] > ans.back())
+            {
+                ans.push_back(nums[i]);
             }
-            dp[i] = maxi;
+            else
+            {
+                int index = lower_bound(ans.begin(), ans.end(), nums[i]) - ans.begin();
+                ans[index] = nums[i];
+            }
         }
-        int ans = 1;
-        for(auto i : dp)ans = max(ans,i);
-        return ans;
+
+        return ans.size();
     }
 };
