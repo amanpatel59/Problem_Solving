@@ -1,3 +1,5 @@
+// INTUTIVE SOLUTION
+
 class Solution {
 public:
     void swapHere(unordered_map<int, int>& mp, int person1, int partner, int i,
