@@ -1,46 +1,30 @@
 // TABULATION
-
-int check(vector<int> &houses)
+int doing2cases(vector<int> &nums)
 {
-    int n = houses.size();
-
-    int prev1 = houses[0];
-    int prev2 = 0;
-
-    for (int i = 1; i < n; i++)
+    int adjacent = nums[0];
+    int previousToAdjacent = nums[0];
+    int curr = nums[0];
+    for (int i = 1; i < nums.size(); i++)
     {
-        int pick = houses[i];
-
-        if (i > 1)
-            pick += prev2;
-
-        int not_pick = 0 + prev1;
-
-        int curr = max(pick, not_pick);
-
-        prev2 = prev1;
-        prev1 = curr;
+        int pick = nums[i];
+        if (i - 2 >= 0)
+            pick = nums[i] + previousToAdjacent;
+        int notPick = adjacent;
+        curr = max(pick, notPick);
+        previousToAdjacent = adjacent;
+        adjacent = curr;
     }
-    return prev1;
+    return curr;
 }
 int rob(vector<int> &nums)
 {
-    int n = nums.size();
+    vector<int> temp = nums;
+    temp.pop_back();
+    int excludingLast = doing2cases(temp);
 
-    if (n == 1)
-    {
-        return nums[0];
-    }
-    vector<int> s_out, e_out;
+    for (int i = 1; i < nums.size(); i++)
+        temp[i - 1] = nums[i];
+    int excludingFirst = doing2cases(temp);
 
-    for (int i = 0; i < n; i++)
-    {
-        if (i != 0)
-            s_out.push_back(nums[i]);
-
-        if (i != n - 1)
-            e_out.push_back(nums[i]);
-    }
-
-    return max(check(s_out), check(e_out));
+    return max(excludingLast, excludingFirst);
 }
